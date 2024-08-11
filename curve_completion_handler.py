@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from scipy.interpolate import interp1d
 from sklearn.linear_model import LinearRegression
 
-curve_completion = Blueprint('curve_completion', _name_)
+curve_completion = Blueprint('curve_completion', __name__)
 
 # Example function for connected curve completion
 
