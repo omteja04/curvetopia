@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-visualize_data = Blueprint('visualize_data', _name_)
+visualize_data = Blueprint('visualize_data', __name__)
 
 @visualize_data.route('/')
 def visualize_image_page():
