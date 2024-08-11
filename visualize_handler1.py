@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-visualize_data = Blueprint('visualize_data', __name__)
+visualize_data = Blueprint('visualize_data', _name_)
 
 @visualize_data.route('/')
 def visualize_image_page():
@@ -76,18 +76,13 @@ def upload_image():
         file_path = os.path.join('static/uploads', file.filename)
         file.save(file_path)
 
-        # Process the CSV file (as described in your code)
+        # Process the CSV file
         path_XYs = read_csv(file_path)
         
-        # Generate the plot
-        plot_transformed(path_XYs)
+        # Generate the plot and get the path to the SVG file
+        plot_image_path = plot_transformed(path_XYs, file.filename)
 
-        # Save the plot image
-        plot_image_path = os.path.join('static/uploads', 'plot_' + file.filename.replace('.csv', '.png'))
-        plt.savefig(plot_image_path)
-        plt.close()
-
-        return render_template('visualize_result.html', original=file.filename, normalized='plot_' + file.filename.replace('.csv', '.png'))
+        return render_template('visualize_result.html', original=file.filename, normalized=plot_image_path)
     
     else:
         return "Invalid data type", 400
@@ -104,7 +99,7 @@ def read_csv(csv_path):
         path_XYs.append(XYs)
     return path_XYs
 
-def plot_transformed(paths_XYs):
+def plot_transformed(paths_XYs, filename):
     fig, ax = plt.subplots(tight_layout=True, figsize=(8, 8))
     colours = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
     
@@ -121,4 +116,9 @@ def plot_transformed(paths_XYs):
             ax.plot(XY_rotated[:, 0], XY_rotated[:, 1], c=c, linewidth=2)
     
     ax.set_aspect('equal')
-    plt.show()
+    # Save the plot as SVG
+    plot_image_path = os.path.join('static/uploads', 'plot_' + filename.replace('.csv', '.svg'))
+    plt.savefig(plot_image_path, format='svg')
+    plt.close()
+    
+    return 'plot_' + filename.replace('.csv', '.svg')

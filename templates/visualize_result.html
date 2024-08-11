@@ -20,9 +20,15 @@
                 <img src="{{ url_for('static', filename='uploads/' + original) }}" alt="Original Image">
             </div>
             <div class="image-sub-container">
+                <h4>Normalized Image:</h4>
+                <img src="{{ url_for('static', filename='uploads/' + normalized) }}" alt="Normalized Image">
+            </div>
+            {% if difference %}
+            <div class="image-sub-container">
                 <h4>Difference Image:</h4>
                 <img src="{{ url_for('static', filename='uploads/' + difference) }}" alt="Difference Image">
             </div>
+            {% endif %}
         </div>
         {% elif original %}
         <div class="container">
