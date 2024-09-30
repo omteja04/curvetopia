@@ -142,7 +142,7 @@ Visualize curves using different formats and convert them to PNG for further ana
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/Karthik-Saladi5/curvetopia.git
+   git clone https://github.com/omteja04/curvetopia.git
    cd curvetopia
    ```
 
